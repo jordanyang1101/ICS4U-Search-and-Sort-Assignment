@@ -1,0 +1,46 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main {
+  public static void main(String[] args) {
+    Scanner input = new Scanner(System.in);
+    ArrayList<Integer> temperatures = new ArrayList<>(Arrays.asList(7, 12, 15, 14, 13, 19, 17, 20, 22));
+
+    // quickSort(temperatures, 0, temperatures.length - 1);
+
+    while (true) {
+      System.out.println("List of Temperatures");
+      System.out.println(temperatures);
+
+      System.out.println("What would you like to do?");
+      System.out.println("Find a temperature(1)");
+      System.out.println("Quit(2)");
+      String choice = input.nextLine();
+      switch (choice) {
+        case "1":
+          System.out.println("What temperature are you looking for: ");
+          String temp = input.nextLine();
+
+          try {
+            int searchTemp = Integer.parseInt(temp);
+            bubbleSort(temperatures);
+            int resultIndex = WeatherStatistics.binarySearch(temperatures, searchTemp);
+            if (resultIndex != -1) {
+              System.out.println("Temperature " + searchTemp + " found at index " + resultIndex);
+            } else {
+              System.out.println("Temperature " + searchTemp + " not found");
+            }
+          } catch (NumberFormatException e) {
+            System.out.println("Invalid Input");
+          }
+          break;
+        case "2":
+          System.exit(0);
+        default:
+          System.out.println("Invalid choice");
+          break;
+      }
+    }
+  }
+}
