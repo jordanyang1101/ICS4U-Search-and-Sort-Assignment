@@ -1,66 +1,62 @@
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+class WeatherStatistics {
+    Scanner input = new Scanner(System.in);
 
-class WeatherStatistics{
-  /*
-  public static void quickSort(int[] arr, int low, int high) {
-  if (low < high) {
-      int pivotIndex = partition(arr, low, high);
-      quickSort(arr, low, pivotIndex - 1);
-      quickSort(arr, pivotIndex + 1, high);
-  }
-  }
+    public void checkOnList(ArrayList<Integer> temperatures) {
+        System.out.println("What is the temperature you are looking for?");
+        int item = input.nextInt();
 
-  public static int partition(int[] arr, int low, int high) {
-      int pivot = arr[high];
-      int i = low - 1;
-      for (int j = low; j < high; j++) {
-          if (arr[j] < pivot) {
-              i++;
-              int temp = arr[i];
-              arr[i] = arr[j];
-              arr[j] = temp;
-          }
-      }
-      int temp = arr[i + 1];
-      arr[i + 1] = arr[high];
-      arr[high] = temp;
-      return i + 1;
-  }
-  */
-    public static void bubbleSort(int[] arr) {  
-        int n = arr.length;  
-        int temp = 0;  
-         for(int i=0; i < n; i++){  
-                 for(int j=1; j < (n-i); j++){  
-                          if(arr[j-1] > arr[j]){  
-                                 //swap elements  
-                                 temp = arr[j-1];  
-                                 arr[j-1] = arr[j];  
-                                 arr[j] = temp;  
-                         }  
+        int index = binarySearch(temperatures, item);
+        if (index != -1) {
+            System.out.println("The temperature is on the list at index " + (index+1));
+        } else {
+            System.out.println("The temperature is not on the list.");
+        }
+    }
 
-                 }  
-         }  
-  
     public static int binarySearch(ArrayList<Integer> arr, int target) {
-      int low = 0;
-      int high = arr.size() - 1;
-      while (low <= high) {
-          int mid = low + (high - low) / 2;
-          if (arr.get(mid) == target) {
-              return mid;
-          } else if (arr.get(mid) < target) {
-              low = mid + 1;
-          } else {
-              high = mid - 1;
-          }
-      }
-      return -1;
-  }
+        int low = 0;
+        int high = arr.size() - 1;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (arr.get(mid) == target) {
+                return mid;
+            } else if (arr.get(mid) < target) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return -1;
+    }
 
+    public void addToList(ArrayList<Integer> temperatures) {
+        System.out.println("What is the temperature you would like to add?");
+        int item = input.nextInt();
+        temperatures.add(item);
+    }
 
-  //public 
+    public void finish(ArrayList<Integer> temperatures) {
+        System.out.println("Original List:");
+        System.out.println(temperatures);
+        System.out.println("Sorted List:");
+
+        insertionSort(temperatures);
+        System.out.println(temperatures);
+    }
+
+    public void insertionSort(ArrayList<Integer> temperatures) {
+        for (int i = 1; i < temperatures.size(); i++) {
+            int key = temperatures.get(i);
+            int j = i - 1;
+            while (j >= 0 && temperatures.get(j) > key) {
+                temperatures.set(j + 1, temperatures.get(j));
+                j = j - 1;
+            }
+            temperatures.set(j + 1, key);
+        }
+    }
 }
+
