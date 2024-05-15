@@ -1,46 +1,44 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
-  public static void main(String[] args) {
-    Scanner input = new Scanner(System.in);
-    ArrayList<Integer> temperatures = new ArrayList<>(Arrays.asList(7, 12, 15, 14, 13, 19, 17, 20, 22));
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
 
-    // quickSort(temperatures, 0, temperatures.length - 1);
+        ArrayList<Integer> temperatures = new ArrayList<>();
+        temperatures.add(12);
+        temperatures.add(7);
+        temperatures.add(15);
+        temperatures.add(19);
+        temperatures.add(18);
+        temperatures.add(22);
 
-    while (true) {
-      System.out.println("List of Temperatures");
-      System.out.println(temperatures);
+        WeatherStatistics manager = new WeatherStatistics();
 
-      System.out.println("What would you like to do?");
-      System.out.println("Find a temperature(1)");
-      System.out.println("Quit(2)");
-      String choice = input.nextLine();
-      switch (choice) {
-        case "1":
-          System.out.println("What temperature are you looking for: ");
-          String temp = input.nextLine();
+        while (true) {
+            System.out.println("This is your current temperature list:");
+            System.out.println(temperatures);
 
-          try {
-            int searchTemp = Integer.parseInt(temp);
-            bubbleSort(temperatures);
-            int resultIndex = WeatherStatistics.binarySearch(temperatures, searchTemp);
-            if (resultIndex != -1) {
-              System.out.println("Temperature " + searchTemp + " found at index " + resultIndex);
-            } else {
-              System.out.println("Temperature " + searchTemp + " not found");
+            System.out.println("What would you like to do?");
+            System.out.println("1. Add a temperature");
+            System.out.println("2. Find a temperature");
+            System.out.println("3. Finish");
+
+            int choice = input.nextInt();
+            switch (choice) {
+                case 1:
+                    manager.addToList(temperatures);
+                    break;
+                case 2:
+                    manager.insertionSort(temperatures);
+                    manager.checkOnList(temperatures);
+                    break;
+                case 3:
+                    manager.finish(temperatures);
+                    return;
+                default:
+                    System.out.println("Invalid input. Please enter a number between 1 and 3.");
             }
-          } catch (NumberFormatException e) {
-            System.out.println("Invalid Input");
-          }
-          break;
-        case "2":
-          System.exit(0);
-        default:
-          System.out.println("Invalid choice");
-          break;
-      }
+        }
     }
-  }
 }
