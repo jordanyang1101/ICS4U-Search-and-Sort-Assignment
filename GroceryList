@@ -1,0 +1,92 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class GroceryList {
+  Scanner input = new Scanner(System.in);
+
+  public void checkOnList(ArrayList<String> Grocerylist) {
+    System.out.println("What is the item you are looking for? ");
+    String item = input.nextLine();
+
+    sequentialSearch(Grocerylist, item);
+
+  }
+
+  public void sequentialSearch(ArrayList<String> Grocerylist, String item) {
+    for (int i = 0; i < Grocerylist.size(); i++) {
+
+      if (Grocerylist.get(i).equals(item)) {
+        System.out.println("The item is on the list at index" + (i + 1));
+        return;
+      }
+
+      else {
+        while (true) {
+          System.out.println("The item is not on the list, do you want to add it? (Y/N)");
+          String choice = input.nextLine();
+          switch (choice) {
+            case "Y":
+              Grocerylist.add(item);
+              break;
+            case "N":
+              break;
+            default:
+              System.out.println("Invalid input");
+          }
+        }
+      }
+    }
+  }
+
+  public void sequentialSearch(ArrayList<String> Grocerylist, String item, boolean toRemove) {
+    for (int i = 0; i < Grocerylist.size(); i++) {
+
+      if (Grocerylist.get(i).equals(item)) {
+        System.out.println("The item is on the list");
+        Grocerylist.remove(i);
+      }
+
+      else {
+        System.out.println("The item was not found");
+        return;
+
+      }
+    }
+  }
+
+  public void addToList(ArrayList<String> Grocerylist) {
+    System.out.println("What is the item you would like to add? ");
+    String item = input.nextLine();
+
+    sequentialSearch(Grocerylist, item);
+
+  }
+
+  public void removeFromlList(ArrayList<String> Grocerylist) {
+    System.out.println("What is the item you would like to remove? ");
+    String item = input.nextLine();
+    boolean toRemove = true;
+
+    sequentialSearch(Grocerylist, item, toRemove);
+
+  }
+
+  public void finish(ArrayList<String> Grocerylist) {
+    System.out.println("Original Grocerylist");
+    System.out.println(Grocerylist);
+    System.out.println("Sorted Grocerylist");
+
+    for (int i = 0; i < Grocerylist.size() - 1; i++) {
+      for (int j = 0; j < Grocerylist.size() - i - 1; j++) {
+        if (Grocerylist.get(j).compareTo(Grocerylist.get(j + 1)) > 0) {
+          // Swap elements
+          String temp = Grocerylist.get(j);
+          Grocerylist.set(j, Grocerylist.get(j + 1));
+          Grocerylist.set(j + 1, temp);
+        }
+      }
+    }
+    System.out.println(Grocerylist);
+
+  }
+}
